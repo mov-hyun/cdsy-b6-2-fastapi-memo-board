@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{{ memo.title }} · 메모 게시판{% endblock %}
+
+{% block main %}
+<a class="back-link" href="{{ url_for('memo_list') }}"><span aria-hidden="true">←</span> 메모 목록</a>
+<article class="panel memo-detail">
+    <header class="memo-header">
+        <h1>{{ memo.title }}</h1>
+        <dl class="memo-meta">
+            <div><dt>번호</dt><dd>{{ memo.id }}</dd></div>
+            <div><dt>작성</dt><dd><time datetime="{{ memo.created_at.isoformat() }}Z">{{ memo.created_at|kst }}</time></dd></div>
+            <div><dt>수정</dt><dd><time datetime="{{ memo.updated_at.isoformat() }}Z">{{ memo.updated_at|kst }}</time></dd></div>
+        </dl>
+    </header>
+    <div class="memo-content">{{ memo.content }}</div>
+    <footer class="actions detail-actions">
+        <a class="button button-secondary" href="{{ url_for('memo_edit', memo_id=memo.id) }}">메모 수정</a>
+        <form method="post" action="{{ url_for('memo_delete', memo_id=memo.id) }}" onsubmit="return window.confirm('이 메모를 삭제할까요?');">
+            <button class="button button-danger" type="submit">메모 삭제</button>
+        </form>
+    </footer>
+</article>
+{% endblock %}

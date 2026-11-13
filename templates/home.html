@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block main %}
+<section class="home-panel" aria-labelledby="home-title">
+    <div class="home-copy">
+        <h1 id="home-title">메모 게시판</h1>
+        <p>할 일과 아이디어를 메모로 남기세요.<br>저장한 메모는 다시 찾아보고 수정하거나 삭제할 수 있어요.</p>
+        <div class="actions">
+            <a class="button button-primary" href="{{ url_for('memo_new') }}"><span aria-hidden="true">＋</span> 새 메모 작성</a>
+            <a class="button button-secondary" href="{{ url_for('memo_list') }}">메모 목록 보기 <span aria-hidden="true">→</span></a>
+        </div>
+    </div>
+    <div class="paper-art" aria-hidden="true">
+        <span class="paper-back"></span>
+        <span class="paper-front"><span></span><span></span><span></span></span>
+    </div>
+</section>
+{% endblock %}

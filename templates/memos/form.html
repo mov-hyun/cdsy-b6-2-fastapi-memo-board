@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% set heading = '메모 수정' if memo_id is not none else '새 메모 작성' %}
+{% block title %}{{ heading }} · 메모 게시판{% endblock %}
+
+{% block main %}
+<a class="back-link" href="{{ url_for('memo_list') }}"><span aria-hidden="true">←</span> 메모 목록</a>
+<h1>{{ heading }}</h1>
+
+<form class="panel memo-form" method="post" action="{{ url_for('memo_update', memo_id=memo_id) if memo_id is not none else url_for('memo_create') }}">
+    <div class="field">
+        <label for="title">제목</label>
+        <input id="title" name="title" type="text" value="{{ title }}" maxlength="{{ title_limit }}" required{% if errors.title %} aria-invalid="true" aria-describedby="title-error"{% endif %}>
+        {% if errors.title %}<p class="error" id="title-error" role="alert">{{ errors.title }}</p>{% endif %}
+    </div>
+    <div class="field">
+        <label for="content">내용</label>
+        <textarea id="content" name="content" rows="9" maxlength="{{ content_limit }}" required{% if errors.content %} aria-invalid="true" aria-describedby="content-error"{% endif %}>
+{{ content }}</textarea>
+        {% if errors.content %}<p class="error" id="content-error" role="alert">{{ errors.content }}</p>{% endif %}
+    </div>
+    <div class="actions form-actions">
+        <a class="button button-secondary" href="{{ url_for('memo_list') }}">취소</a>
+        <button class="button button-primary" type="submit">{{ '수정 저장' if memo_id is not none else '메모 저장' }}</button>
+    </div>
+</form>
+{% endblock %}
