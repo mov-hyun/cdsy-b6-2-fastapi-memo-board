@@ -7,6 +7,7 @@ from database import Base
 
 TITLE_LIMIT = 120
 CONTENT_LIMIT = 5_000
+MAX_MEMO_ID = 2**63 - 1  # SQLite INTEGER primary keys are signed 64-bit values.
 
 
 class Memo(Base):

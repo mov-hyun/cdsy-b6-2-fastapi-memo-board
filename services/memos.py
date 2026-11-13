@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from datetime import datetime, timezone
 
-from models.memo import CONTENT_LIMIT, TITLE_LIMIT, Memo
+from models.memo import CONTENT_LIMIT, MAX_MEMO_ID, TITLE_LIMIT, Memo
 from repositories.memos import MemoRepository
 
 
@@ -56,6 +56,8 @@ class MemoService:
         self.repository.delete(self._get_memo(memo_id))
 
     def _get_memo(self, memo_id: int) -> Memo:
+        if not 1 <= memo_id <= MAX_MEMO_ID:
+            raise MemoNotFound(memo_id)
         memo = self.repository.get(memo_id)
         if memo is None:
             raise MemoNotFound(memo_id)
